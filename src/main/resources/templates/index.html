@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Store Location</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWvaoaliL9rusjWMEt_8VXYuHHXcgmxC8"></script>
+
+	<style>
+		#map-container {
+			height: 400px;
+			margin-top: 20px;
+		}
+
+		#map {
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container mt-5">
+		<h2>Select City and Store</h2>
+
+		<!-- City Dropdown -->
+		<div class="form-group">
+			<label for="cityDropdown">Select City:</label>
+			<select class="form-control" id="cityDropdown" onchange="loadStores()">
+				<option value="" disabled selected>Select an option</option>
+				<!-- Loop over cities from the Thymeleaf model -->
+				<option th:each="city : ${cities}" th:value="${city.cityId}" th:text="${city.cityName}"></option>
+			</select>
+		</div>
+
+		<!-- Store Dropdown -->
+		<div class="form-group" style="display: none;" id="storeDropdownContainer">
+			<label for="storeDropdown">Select Store:</label>
+			<select class="form-control" id="storeDropdown" onchange="displayStoresOnMap()">
+				<option value="" disabled selected>Select an option</option>
+			</select>
+		</div>
+
+
+		<div id="map-container">
+			<div id="map"></div>
+		</div>
+	</div>
+	<script src="location-validator.js"></script>
+</body>
+
+</html>
